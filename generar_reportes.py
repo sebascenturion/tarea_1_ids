@@ -11,11 +11,9 @@ def generar_reportes():
         JOIN cursos c ON m.curso_id = c.id
     ''', conn)
 
-    # Filtrar aprobados y aplazos
     aprobados = df[df['nota'] >= 60]
     aplazos = df[df['nota'] < 60]
 
-    # Guardar en CSV
     aprobados.to_csv('aprobados.csv', index=False)
     aplazos.to_csv('aplazos.csv', index=False)
 

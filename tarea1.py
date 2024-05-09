@@ -6,19 +6,16 @@ def cargar_datos():
     conn = sqlite3.connect('universidad_clean.db')
     cursor = conn.cursor()
 
-    # Leer el archivo CSV e iterar sobre las filas
     df = pd.read_csv('dataset/datos.csv')
 
-    # Variable para almacenar el ID del último alumno procesado
+    # Guardar el ID del último alumno procesado
     ultimo_alumno_id = None
 
     for index, row in df.iterrows():
         # Verificar si el alumno actual es diferente del último procesado
         if row['alumno_id'] != ultimo_alumno_id:
             if ultimo_alumno_id is not None:
-                # Imprimir una línea de separación si no es el primer registro
                 print("-" * 80)
-            # Actualizar el último alumno procesado
             ultimo_alumno_id = row['alumno_id']
 
         # Verificar si el alumno ya existe
@@ -49,7 +46,6 @@ def cargar_datos():
                 else:
                     print(f"Se omitió un registro de matriculación duplicado para {row['nombre']} {row['apellido']} y curso {nombre_curso} en el año {row['anho']}.")
             else:
-                # Notificar que la nota es inválida junto con el registro del alumno
                 print(f"Nota inválida {row['nota']} para {row['nombre']} {row['apellido']}; matriculación no registrada.")
         else:
             print(f"Curso no válido: ID {row['curso_id']} para el alumno {row['nombre']} {row['apellido']}. Matriculación no registrada")
